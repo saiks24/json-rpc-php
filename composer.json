@@ -8,7 +8,8 @@
       "Saiks24\\Rpc\\":"src/",
       "Saiks24\\Rpc\\Builders\\":"src/Builders/",
       "Saiks24\\Rpc\\Request\\":"src/Request/",
-      "Saiks24\\Rpc\\Response\\":"src/Response/"
+      "Saiks24\\Rpc\\Response\\":"src/Response/",
+      "Saiks24\\Rpc\\Exceptions\\":"src/Response/"
     }
   }
 }

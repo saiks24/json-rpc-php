@@ -20,14 +20,6 @@ class Request implements RpcRequestInterface
     }
 
     /**
-     * @return mixed
-     */
-    public function getProtocolType()
-    {
-        return $this->protocolType;
-    }
-
-    /**
      * @param mixed $protocolType
      */
     public function setProtocolType($protocolType)
@@ -51,10 +43,20 @@ class Request implements RpcRequestInterface
         $this->method = $method;
     }
 
+    public function getProtocolVersion(): string
+    {
+        return $this->protocolType;
+    }
+
+    public function getMethodName(): string
+    {
+        return $this->method;
+    }
+
     /**
-     * @return mixed
+     * @return array
      */
-    public function getArgs()
+    public function getArgs() : array
     {
         return $this->args;
     }
@@ -68,9 +70,9 @@ class Request implements RpcRequestInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }

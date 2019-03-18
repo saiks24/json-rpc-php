@@ -8,9 +8,10 @@ class RpcResponse implements RpcResponseInterface
     private $protocol;
     private $status;
     private $id;
-    private $errorCode;
-    private $errorMessage;
+    /** @var \Saiks24\Rpc\Response\Result */
     private $result;
+    /** @var \Saiks24\Rpc\Response\Error  */
+    private $error;
 
     public function serialize()
     {
@@ -24,10 +25,13 @@ class RpcResponse implements RpcResponseInterface
         ];
         switch ($this->status) {
             case 'success':
-                $response['result'] = $this->result;
+                $response['result'] = $this->result->getResult();
                 break;
             case 'error':
-                $response['error'] = ['code'=>$this->errorCode,'message'=>$this->errorMessage];
+                $response['error'] = [
+                  'code'=>$this->error->getCode(),
+                  'message'=>$this->error->getMessage()
+                ];
                 break;
         }
         if(!empty($this->id)) {
@@ -36,12 +40,19 @@ class RpcResponse implements RpcResponseInterface
         return json_encode($response);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getProtocol()
+    public function getProtocolVersion(): string
     {
         return $this->protocol;
+    }
+
+    public function getError(): Error
+    {
+        // TODO: Implement getError() method.
+    }
+
+    public function setError(Error $error)
+    {
+        $this->error = $error;
     }
 
     /**
@@ -55,7 +66,7 @@ class RpcResponse implements RpcResponseInterface
     /**
      * @return mixed
      */
-    public function getStatus()
+    public function getStatus() : string
     {
         return $this->status;
     }
@@ -85,41 +96,9 @@ class RpcResponse implements RpcResponseInterface
     }
 
     /**
-     * @return mixed
+     * @return \Saiks24\Rpc\Response\Result
      */
-    public function getErrorCode()
-    {
-        return $this->errorCode;
-    }
-
-    /**
-     * @param mixed $errorCode
-     */
-    public function setErrorCode($errorCode)
-    {
-        $this->errorCode = $errorCode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getErrorMessage()
-    {
-        return $this->errorMessage;
-    }
-
-    /**
-     * @param mixed $errorMessage
-     */
-    public function setErrorMessage($errorMessage)
-    {
-        $this->errorMessage = $errorMessage;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getResult()
+    public function getResult() : Result
     {
         return $this->result;
     }

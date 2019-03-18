@@ -1,14 +1,25 @@
 <?php
 namespace Saiks24\Rpc\Builders;
 
+use Saiks24\Rpc\Response\Error;
+use Saiks24\Rpc\Response\Result;
 use Saiks24\Rpc\Response\RpcResponse;
 
+/**
+ * Class RPCResponseBuilder
+ *
+ * Factory class to create instances of the class RpcResponse
+ * @package Saiks24\Rpc\Builders
+ */
 class RPCResponseBuilder
 {
 
-    /** @var  */
+    /** @var  RpcResponse */
     private $response;
 
+    /**
+     * @var String Version of RPC-JSON Protocol
+     */
     private $protocolVersion;
 
     /**
@@ -41,19 +52,12 @@ class RPCResponseBuilder
         return $this;
     }
 
-    public function withErrorCode(String $errorCode)
+    public function withError(Error $error)
     {
-        $this->response->setErrorCode($errorCode);
-        return $this;
+        $this->response->setError($error);
     }
 
-    public function withErrorMessage(String $errorMessage)
-    {
-        $this->response->setErrorMessage($errorMessage);
-        return $this;
-    }
-
-    public function withResult(String $result)
+    public function withResult(Result $result)
     {
         $this->response->setResult($result);
         return $this;
@@ -65,7 +69,7 @@ class RPCResponseBuilder
         return $this;
     }
 
-    public function build()
+    public function build() : RpcResponse
     {
         return $this->response;
     }
