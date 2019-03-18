@@ -7,11 +7,9 @@ use Saiks24\Rpc\Request\RpcRequestInterface;
 
 class RPCRequestBuilder
 {
-    public const RPC_PROTOCOL_VERSION_2_0 = 'rpc2.0';
-    public const RPC_PROTOCOL_VERSION_1_0 = 'rpc1.0';
-
     private $protocolVersion;
-
+    /** @var Request */
+    private $request;
     /**
      * RPCRequestBuilder constructor.
      *
@@ -20,8 +18,37 @@ class RPCRequestBuilder
     public function __construct(String $protocolVersion)
     {
         $this->protocolVersion = $protocolVersion;
+        $this->request = new Request($protocolVersion);
     }
 
+    public function withProtocol(String $protocol)
+    {
+        $this->request->setProtocolType($protocol);
+        return $this;
+    }
+
+    public function withMethod(String $methodName)
+    {
+        $this->request->setMethod($methodName);
+        return $this;
+    }
+
+    public function withArgs(array $args)
+    {
+        $this->request->setArgs($args);
+        return $this;
+    }
+
+    public function withId(String $id)
+    {
+        $this->request->setId($id);
+        return $this;
+    }
+
+    public function build()
+    {
+        return $this->request;
+    }
 
     public static function getBuilder(String $protocolVersion): self
     {

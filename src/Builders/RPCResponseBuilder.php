@@ -6,7 +6,7 @@ use Saiks24\Rpc\Response\RpcResponse;
 class RPCResponseBuilder
 {
 
-    /** @var \Saiks24\Rpc\Response\RpcResponseInterface */
+    /** @var  */
     private $response;
 
     private $protocolVersion;
@@ -20,7 +20,8 @@ class RPCResponseBuilder
     {
         $this->protocolVersion = $protocolVersion;
         $response = new RpcResponse();
-        $this->response = $response->withProtocol($protocolVersion);
+        $response->setProtocol($protocolVersion);
+        $this->response = $response;
     }
 
     public static function getBuilder(String $protocolVersion)
@@ -28,9 +29,44 @@ class RPCResponseBuilder
         return new RPCResponseBuilder($protocolVersion);
     }
 
-    public function getResponseObject()
+    public function withStatus(String $status)
+    {
+        $this->response->setStatus($status);
+        return $this;
+    }
+
+    public function withId(String $id)
+    {
+        $this->response->setId($id);
+        return $this;
+    }
+
+    public function withErrorCode(String $errorCode)
+    {
+        $this->response->setErrorCode($errorCode);
+        return $this;
+    }
+
+    public function withErrorMessage(String $errorMessage)
+    {
+        $this->response->setErrorMessage($errorMessage);
+        return $this;
+    }
+
+    public function withResult(String $result)
+    {
+        $this->response->setResult($result);
+        return $this;
+    }
+
+    public function withProtocol(String $protocol)
+    {
+        $this->response->setProtocol($protocol);
+        return $this;
+    }
+
+    public function build()
     {
         return $this->response;
     }
-
 }

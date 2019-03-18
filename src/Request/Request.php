@@ -28,6 +28,14 @@ class Request implements RpcRequestInterface
     }
 
     /**
+     * @param mixed $protocolType
+     */
+    public function setProtocolType($protocolType)
+    {
+        $this->protocolType = $protocolType;
+    }
+
+    /**
      * @return mixed
      */
     public function getMethod()
@@ -38,10 +46,9 @@ class Request implements RpcRequestInterface
     /**
      * @param mixed $method
      */
-    public function withMethod($method)
+    public function setMethod($method)
     {
         $this->method = $method;
-        return $this;
     }
 
     /**
@@ -55,10 +62,9 @@ class Request implements RpcRequestInterface
     /**
      * @param mixed $args
      */
-    public function withArgs($args)
+    public function setArgs($args)
     {
         $this->args = $args;
-        return $this;
     }
 
     /**
@@ -72,10 +78,24 @@ class Request implements RpcRequestInterface
     /**
      * @param mixed $id
      */
-    public function withId($id)
+    public function setId($id)
     {
         $this->id = $id;
-        return $this;
     }
 
+
+    public function serialize()
+    {
+        return $this->__toString();
+    }
+
+    public function __toString()
+    {
+        $request = [
+          'jsonrpc' => $this->protocolType,
+          'method' => $this->method,
+          'params' => json_encode($this->args)
+        ];
+        return json_encode($request);
+    }
 }
