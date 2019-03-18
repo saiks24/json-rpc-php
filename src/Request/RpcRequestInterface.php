@@ -2,7 +2,7 @@
 namespace Saiks24\Rpc\Request;
 
 
-interface RpcResponseInterface
+interface RpcRequestInterface
 {
 
 }
