@@ -1,0 +1,14 @@
+{
+  "require": {
+    "psr/http-message":"*",
+    "php": ">=7.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Saiks24\\Rpc\\":"/src/",
+      "Saiks24\\Rpc\\Builders":"/src/Builders/",
+      "Saiks24\\Rpc\\Request":"/src/Request",
+      "Saiks24\\Rpc\\REsponse":"/src/Response"
+    }
+  }
+}
