@@ -72,9 +72,14 @@ class RPCRequestBuilder
         return $request;
     }
 
+
     public function createFromPsrRequest(RequestInterface $request)
     {
-        //TODO Realize
+        if($request->getMethod()!=='post') {
+            throw new \InvalidArgumentException();
+        }
+        $rpcRequest = $request->getBody()->getContents();
+        return $this->createFromString($rpcRequest);
     }
 
     private function validateRequest(String $requestBody) : bool
