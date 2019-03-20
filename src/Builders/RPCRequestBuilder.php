@@ -3,8 +3,6 @@ namespace Saiks24\Rpc\Builders;
 
 use Psr\Http\Message\RequestInterface;
 use Saiks24\Rpc\Request\Request;
-use Saiks24\Rpc\Request\RpcRequestInterface;
-use Saiks24\Rpc\Rpc;
 
 class RPCRequestBuilder
 {
