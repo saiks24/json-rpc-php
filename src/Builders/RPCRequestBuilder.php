@@ -56,18 +56,21 @@ class RPCRequestBuilder
         return new RPCRequestBuilder($protocolVersion);
     }
 
-    public function createFromString(String $requestBody) : RpcRequestInterface
+    public function createFromString(String $requestBody) : self
     {
         if(!$this->validateRequest($requestBody)) {
             throw new \Exception();
         }
 
         $requestBody = json_decode($requestBody,true);
-        $request = $this->withProtocol(Rpc::RPC_PROTOCOL_VERSION_2_0)
-                        ->withArgs($requestBody['params'])
-                        ->withMethod($requestBody['method'])
-                        ->build();
-        return $request;
+        $request = new Request($requestBody['jsonrpc']);
+        $request->setArgs($requestBody['params']);
+        $request->setMethod($requestBody['method']);
+        if(isset($requestBody['id'])) {
+            $request->setId($requestBody['id']);
+        }
+        $this->request = $request;
+        return $this;
     }
 
 

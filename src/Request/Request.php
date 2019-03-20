@@ -74,7 +74,7 @@ class Request implements RpcRequestInterface
      */
     public function getId() : string
     {
-        return $this->id;
+        return $this->id??'';
     }
 
     /**
