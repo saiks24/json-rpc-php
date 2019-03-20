@@ -9,11 +9,11 @@ class Result
     /**
      * Result constructor.
      *
-     * @param String $result
+     * @param array $result
      */
-    public function __construct(String $result)
+    public function __construct(array $result)
     {
-        $this->result = $result;
+        $this->result = json_encode($result);
     }
 
     /**
