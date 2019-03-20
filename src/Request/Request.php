@@ -96,7 +96,7 @@ class Request implements RpcRequestInterface
         $request = [
           'jsonrpc' => $this->protocolType,
           'method' => $this->method,
-          'params' => json_encode($this->args)
+          'params' => $this->args
         ];
         return json_encode($request);
     }
