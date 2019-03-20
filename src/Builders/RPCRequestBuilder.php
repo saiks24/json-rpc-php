@@ -58,23 +58,15 @@ class RPCRequestBuilder
 
     public function createFromString(String $requestBody) : RpcRequestInterface
     {
-//        if(!$this->validateRequest($requestBody)) {
-//            throw new \Exception();
-//        }
+        if(!$this->validateRequest($requestBody)) {
+            throw new \Exception();
+        }
 
         $requestBody = json_decode($requestBody,true);
         $request = $this->withProtocol(Rpc::RPC_PROTOCOL_VERSION_2_0)
                         ->withArgs($requestBody['params'])
                         ->withMethod($requestBody['method'])
                         ->build();
-        return $request;
-//        $request = new Request($this->protocolVersion);
-//        $request->setMethod($requestBody['method'])
-//            ->setA($requestBody['args']);
-
-        if(isset($requestBody['id'])) {
-            $request->withId($requestBody['id']);
-        }
         return $request;
     }
 
@@ -90,7 +82,7 @@ class RPCRequestBuilder
 
     private function validateRequest(String $requestBody) : bool
     {
-        return json_decode($requestBody) === null;
+        return json_decode($requestBody,true) !== null;
     }
 
 }
