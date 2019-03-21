@@ -25,7 +25,9 @@
       "Saiks24\\Rpc\\Builders\\":"src/Builders/",
       "Saiks24\\Rpc\\Request\\":"src/Request/",
       "Saiks24\\Rpc\\Response\\":"src/Response/",
-      "Saiks24\\Rpc\\Exceptions\\":"src/Response/"
+      "Saiks24\\Rpc\\Exceptions\\":"src/Response/",
+      "Saiks24\\Rpc\\Client\\":"src/Client/",
+      "Saiks24\\Rpc\\Server\\":"src/Server/"
     }
   }
 
