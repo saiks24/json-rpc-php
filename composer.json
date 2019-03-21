@@ -12,7 +12,8 @@
   "license": "Apache-2",
   "require": {
     "psr/http-message":"*",
-    "php": ">=7.0.0"
+    "php": ">=7.0.0",
+    "guzzlehttp/guzzle": "~6.0"
   },
 
   "require-dev": {
@@ -27,7 +28,8 @@
       "Saiks24\\Rpc\\Response\\":"src/Response/",
       "Saiks24\\Rpc\\Exceptions\\":"src/Response/",
       "Saiks24\\Rpc\\Client\\":"src/Client/",
-      "Saiks24\\Rpc\\Server\\":"src/Server/"
+      "Saiks24\\Rpc\\Server\\":"src/Server/",
+      "Saiks24\\Rpc\\Senders\\":"src/Senders/"
     }
   }
 
