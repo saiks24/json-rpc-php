@@ -1,6 +1,7 @@
 <?php
 namespace Saiks24\Rpc\Builders;
 
+use Psr\Http\Message\ResponseInterface;
 use Saiks24\Rpc\Response\Error;
 use Saiks24\Rpc\Response\Result;
 use Saiks24\Rpc\Response\RpcResponse;
@@ -72,5 +73,25 @@ class RPCResponseBuilder
     public function build() : RpcResponse
     {
         return $this->response;
+    }
+
+    public function createFromString(String $requestBody)
+    {
+        $requestBody = json_decode($requestBody,true);
+        $response = new RpcResponse();
+        $response->setArgs($requestBody['params']);
+        $response->setMethod($requestBody['method']);
+        $response->setProtocol($requestBody['jsonrpc']);
+        if(isset($requestBody['id'])) {
+            $response->setId($requestBody['id']);
+        }
+        $this->response = $response;
+        return $this;
+    }
+
+    public function createFromPsrResponse(ResponseInterface $response)
+    {
+        $body = $response->getBody()->getContents();
+        return $this->createFromString($body)->response;
     }
 }

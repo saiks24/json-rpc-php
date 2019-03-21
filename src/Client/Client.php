@@ -7,6 +7,11 @@ use Saiks24\Rpc\Request\Request;
 use Saiks24\Rpc\Response\RpcResponse;
 use Saiks24\Rpc\Senders\SenderInterface;
 
+/** JSON-RPC Client
+ * Class Client
+ *
+ * @package Saiks24\Rpc\Client
+ */
 class Client implements RpcClientInterface
 {
     /** @var String $serverAddress */
@@ -42,7 +47,7 @@ class Client implements RpcClientInterface
      */
     public function sendRequest(SenderInterface $sender): RpcResponse
     {
-        $response = $sender->send($this->request);
+        $response = $sender->send($this->request,$this->serverAddress);
         return $response;
     }
 

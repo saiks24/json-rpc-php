@@ -18,8 +18,9 @@ interface SenderInterface
 
     /** Send request to server
      * @param \Saiks24\Rpc\Request\Request $request
+     * @param String $requestAddress
      *
      * @return RpcResponse
      */
-    public function send(Request $request) : RpcResponse;
+    public function send(Request $request, String $requestAddress) : RpcResponse;
 }
