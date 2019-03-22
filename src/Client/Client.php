@@ -20,14 +20,16 @@ class Client implements RpcClientInterface
     /** @var Request */
     private $request;
 
-    /** Set server to request address
-     * @param String $address
+    /**
+     * Client constructor.
      *
-     * @return mixed|void
+     * @param String $serverAddress
+     * @param Request $request
      */
-    public function setRequestAddress(String $address)
+    public function __construct(String $serverAddress, Request $request=null)
     {
-        $this->serverAddress = $address;
+        $this->serverAddress = $serverAddress;
+        $this->request = $request;
     }
 
     /** Set JSON-RPC request body
