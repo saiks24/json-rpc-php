@@ -46,7 +46,9 @@ class RPCRequestBuilder
 
     public function build()
     {
-        return $this->request;
+        $request = $this->request;
+        $this->request = null;
+        return $request;
     }
 
     public static function getBuilder(String $protocolVersion): self

@@ -72,7 +72,9 @@ class RPCResponseBuilder
 
     public function build() : RpcResponse
     {
-        return $this->response;
+        $response = $this->response;
+        $this->response = null;
+        return $response;
     }
 
     public function createFromString(String $requestBody)
