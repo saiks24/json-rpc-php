@@ -2,6 +2,7 @@
 
 namespace Saiks24\Rpc\Server;
 
+use Psr\Http\Message\StreamInterface;
 use Saiks24\Rpc\Response\RpcResponseInterface;
 
 /** Base Server interface
@@ -20,8 +21,10 @@ interface RpcServerInterface
     public function setResponse(RpcResponseInterface $response);
 
     /** Send response to client
+     * @param \Psr\Http\Message\StreamInterface $stream
+     *
      * @return bool
      */
-    public function sendResponse() : bool;
+    public function sendResponse(StreamInterface $stream) : bool;
 
 }
