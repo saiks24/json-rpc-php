@@ -10,5 +10,5 @@ interface RpcResponseInterface
 
     public function getStatus() : string ;
 
-    public function getResult() : Result ;
+    public function getResult() : string ;
 }

@@ -41,12 +41,6 @@ class RPCResponseBuilder
         return new RPCResponseBuilder($protocolVersion);
     }
 
-    public function withStatus(String $status)
-    {
-        $this->response->setStatus($status);
-        return $this;
-    }
-
     public function withId(String $id)
     {
         $this->response->setId($id);
@@ -56,9 +50,10 @@ class RPCResponseBuilder
     public function withError(Error $error)
     {
         $this->response->setError($error);
+        return $this;
     }
 
-    public function withResult(Result $result)
+    public function withResult(string $result)
     {
         $this->response->setResult($result);
         return $this;

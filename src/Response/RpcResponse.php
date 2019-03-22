@@ -6,10 +6,12 @@ namespace Saiks24\Rpc\Response;
 class RpcResponse implements RpcResponseInterface
 {
     private $protocol;
-    private $status;
+    /** @var bool */
+    private $isError = false;
     private $id;
-    /** @var \Saiks24\Rpc\Response\Result */
+    /** @var string */
     private $result;
+
     /** @var \Saiks24\Rpc\Response\Error  */
     private $error;
 
@@ -23,16 +25,13 @@ class RpcResponse implements RpcResponseInterface
         $response = [
           'jsonrpc'=>$this->protocol,
         ];
-        switch ($this->status) {
-            case 'success':
-                $response['result'] = $this->result->getResult();
-                break;
-            case 'error':
-                $response['error'] = [
-                  'code'=>$this->error->getCode(),
-                  'message'=>$this->error->getMessage()
-                ];
-                break;
+        if($this->isError) {
+            $response['error'] = [
+              'code'=>$this->error->getCode(),
+              'message'=>$this->error->getMessage()
+            ];
+        } else {
+            $response['result'] = $this->result;
         }
         if(!empty($this->id)) {
             $response['id'] = $this->id;
@@ -52,6 +51,7 @@ class RpcResponse implements RpcResponseInterface
 
     public function setError(Error $error)
     {
+        $this->isError = true;
         $this->error = $error;
     }
 
@@ -69,14 +69,6 @@ class RpcResponse implements RpcResponseInterface
     public function getStatus() : string
     {
         return $this->status;
-    }
-
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
     }
 
     /**
@@ -98,13 +90,13 @@ class RpcResponse implements RpcResponseInterface
     /**
      * @return \Saiks24\Rpc\Response\Result
      */
-    public function getResult() : Result
+    public function getResult() : string
     {
         return $this->result;
     }
 
     /**
-     * @param mixed $result
+     * @param string $result
      */
     public function setResult($result)
     {

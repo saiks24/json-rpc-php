@@ -15,13 +15,6 @@ use Saiks24\Rpc\Senders\SenderInterface;
 interface RpcClientInterface
 {
 
-    /** Set target to request
-     * @param String $address (Example: 0.0.0.0 http://sitename.com )
-     *
-     * @return mixed
-     */
-    public function setRequestAddress(String $address);
-
     /** Set Body for request
      * @param \Saiks24\Rpc\Request\Request $request
      *
