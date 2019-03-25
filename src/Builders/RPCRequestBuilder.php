@@ -24,12 +24,6 @@ class RPCRequestBuilder
         $this->request = new Request($protocolVersion);
     }
 
-    public function withProtocol(String $protocol)
-    {
-        $this->request->setProtocolType($protocol);
-        return $this;
-    }
-
     public function withMethod(String $methodName)
     {
         $this->request->setMethod($methodName);
