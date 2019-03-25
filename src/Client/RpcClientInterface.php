@@ -27,5 +27,5 @@ interface RpcClientInterface
      *
      * @return \Saiks24\Rpc\Response\RpcResponse
      */
-    public function sendRequest(SenderInterface $sender) : RpcResponse;
+    public function sendRequest() : RpcResponse;
 }

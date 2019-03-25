@@ -60,9 +60,14 @@ class RPCRequestBuilder
         return new RPCRequestBuilder($protocolVersion);
     }
 
+    /**
+     * @param String $requestBody
+     *
+     * @return \Saiks24\Rpc\Builders\RPCRequestBuilder
+     * @throws \Saiks24\Rpc\Exceptions\WrongJsonRpcRequestException
+     */
     public function createFromString(String $requestBody) : self
     {
-
         if(Rpc::validateRequest($requestBody)) {
             $requestBody = json_decode($requestBody, true);
             $request = new Request($requestBody['jsonrpc']);

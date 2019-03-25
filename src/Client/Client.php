@@ -20,16 +20,20 @@ class Client implements RpcClientInterface
     /** @var Request */
     private $request;
 
+    /** @var \Saiks24\Rpc\Senders\SenderInterface  */
+    private $sender;
+
     /**
      * Client constructor.
      *
      * @param String $serverAddress
      * @param Request $request
      */
-    public function __construct(String $serverAddress, Request $request=null)
+    public function __construct(String $serverAddress, Request $request=null,SenderInterface $sender)
     {
         $this->serverAddress = $serverAddress;
         $this->request = $request;
+        $this->sender = $sender;
     }
 
     /** Set JSON-RPC request body
@@ -43,13 +47,12 @@ class Client implements RpcClientInterface
     }
 
     /** Send request to server
-     * @param \Saiks24\Rpc\Senders\SenderInterface $sender
      *
      * @return \Saiks24\Rpc\Response\RpcResponse
      */
-    public function sendRequest(SenderInterface $sender): RpcResponse
+    public function sendRequest(): RpcResponse
     {
-        $response = $sender->send($this->request,$this->serverAddress);
+        $response = $this->sender->send($this->request,$this->serverAddress);
         return $response;
     }
 

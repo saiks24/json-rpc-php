@@ -75,6 +75,12 @@ class RPCResponseBuilder
         return $response;
     }
 
+    /**
+     * @param String $responseBody
+     *
+     * @return $this
+     * @throws \Saiks24\Rpc\Exceptions\WrongJsonRpcResponseException
+     */
     public function createFromString(String $responseBody)
     {
         if(Rpc::validateResponse($responseBody)) {
