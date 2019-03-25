@@ -2,7 +2,7 @@
 
 namespace Saiks24\Rpc\Exceptions;
 
-class RpcException extends \Exception
+class RequestException extends RpcException
 {
 
 }

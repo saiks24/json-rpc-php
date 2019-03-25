@@ -2,7 +2,11 @@
 namespace Saiks24\Rpc\Builders;
 
 use Psr\Http\Message\RequestInterface;
+use Saiks24\Rpc\Exceptions\WrongJsonRpcRequestException;
 use Saiks24\Rpc\Request\Request;
+use Saiks24\Rpc\Response\Error;
+use Saiks24\Rpc\Response\RpcResponse;
+use Saiks24\Rpc\Rpc;
 
 class RPCRequestBuilder
 {
@@ -58,10 +62,7 @@ class RPCRequestBuilder
 
     public function createFromString(String $requestBody) : self
     {
-        if(!$this->validateRequest($requestBody)) {
-            throw new \Exception();
-        }
-
+        Rpc::validateRequest($requestBody);
         $requestBody = json_decode($requestBody,true);
         $request = new Request($requestBody['jsonrpc']);
         $request->setArgs($requestBody['params']);
@@ -81,11 +82,6 @@ class RPCRequestBuilder
         }
         $rpcRequest = $request->getBody()->getContents();
         return $this->createFromString($rpcRequest);
-    }
-
-    private function validateRequest(String $requestBody) : bool
-    {
-        return json_decode($requestBody,true) !== null;
     }
 
 }

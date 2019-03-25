@@ -2,9 +2,12 @@
 namespace Saiks24\Rpc\Builders;
 
 use Psr\Http\Message\ResponseInterface;
+use Saiks24\Rpc\Exceptions\WrongJsonRpcRequestException;
 use Saiks24\Rpc\Response\Error;
 use Saiks24\Rpc\Response\Result;
 use Saiks24\Rpc\Response\RpcResponse;
+use Saiks24\Rpc\Response\RpcResponseInterface;
+use Saiks24\Rpc\Rpc;
 
 /**
  * Class RPCResponseBuilder
@@ -74,8 +77,8 @@ class RPCResponseBuilder
 
     public function createFromString(String $responseBody)
     {
-        $responseBody = json_decode($responseBody,true);
         $response = new RpcResponse();
+        $responseBody = json_decode($responseBody,true);
         $response->setProtocol($responseBody['jsonrpc']);
         if(isset($responseBody['error'])) {
             $response->setError(

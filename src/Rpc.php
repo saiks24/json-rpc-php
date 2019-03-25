@@ -1,6 +1,9 @@
 <?php
 namespace Saiks24\Rpc;
 
+use Saiks24\Rpc\Exceptions\WrongJsonRequestException;
+use Saiks24\Rpc\Exceptions\WrongJsonRpcRequestException;
+
 class Rpc
 {
     const RPC_PROTOCOL_VERSION_1_0 = '1.0';
@@ -12,21 +15,22 @@ class Rpc
      * @param string $request
      *
      * @return bool
+     * @throws \Saiks24\Rpc\Exceptions\WrongJsonRpcRequestException
      */
     public static function validateRequest(string $request) : bool
     {
         $request = json_decode($request,true);
         if(empty($request)) {
-            return false;
+            throw new WrongJsonRpcRequestException();
         }
         if(!isset($request['jsonrpc'])) {
-            return false;
+            throw new WrongJsonRpcRequestException();
         }
         if(!isset($request['method'])) {
-            return false;
+            throw new WrongJsonRpcRequestException();
         }
         if(!isset($request['params'])) {
-            return false;
+            throw new WrongJsonRpcRequestException();
         }
         return true;
     }
