@@ -4,6 +4,7 @@ namespace Saiks24\Rpc\Senders;
 
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 use Saiks24\Rpc\Builders\RPCResponseBuilder;
 use Saiks24\Rpc\Request\Request;
 use Saiks24\Rpc\Response\RpcResponse;
@@ -20,14 +21,18 @@ class HttpSender implements SenderInterface
         $httpRequest = new \GuzzleHttp\Psr7\Request(
           'POST',$requestAddress,$headers,$request->serialize()
         );
-
         $response = $client->send($httpRequest);
+        $rpcResponse = $this->parseResult($response);
 
+        return $rpcResponse;
+    }
+
+    protected function parseResult(ResponseInterface $response)
+    {
         $rpcResponse = RPCResponseBuilder::getBuilder(
           Rpc::RPC_PROTOCOL_VERSION_2_0
         )->createFromPsrResponse($response);
 
         return $rpcResponse;
     }
-
 }

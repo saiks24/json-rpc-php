@@ -29,7 +29,7 @@ class Client implements RpcClientInterface
      * @param String $serverAddress
      * @param Request $request
      */
-    public function __construct(String $serverAddress, Request $request=null,SenderInterface $sender)
+    public function __construct(String $serverAddress, Request $request=null, SenderInterface $sender)
     {
         $this->serverAddress = $serverAddress;
         $this->request = $request;
