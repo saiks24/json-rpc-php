@@ -62,16 +62,18 @@ class RPCRequestBuilder
 
     public function createFromString(String $requestBody) : self
     {
-        Rpc::validateRequest($requestBody);
-        $requestBody = json_decode($requestBody,true);
-        $request = new Request($requestBody['jsonrpc']);
-        $request->setArgs($requestBody['params']);
-        $request->setMethod($requestBody['method']);
-        if(isset($requestBody['id'])) {
-            $request->setId($requestBody['id']);
+
+        if(Rpc::validateRequest($requestBody)) {
+            $requestBody = json_decode($requestBody, true);
+            $request = new Request($requestBody['jsonrpc']);
+            $request->setArgs($requestBody['params']);
+            $request->setMethod($requestBody['method']);
+            if (isset($requestBody['id'])) {
+                $request->setId($requestBody['id']);
+            }
+            $this->request = $request;
+            return $this;
         }
-        $this->request = $request;
-        return $this;
     }
 
 

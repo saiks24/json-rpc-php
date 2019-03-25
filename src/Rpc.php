@@ -1,8 +1,9 @@
 <?php
 namespace Saiks24\Rpc;
 
-use Saiks24\Rpc\Exceptions\WrongJsonRequestException;
+
 use Saiks24\Rpc\Exceptions\WrongJsonRpcRequestException;
+use Saiks24\Rpc\Exceptions\WrongJsonRpcResponseException;
 
 class Rpc
 {
@@ -39,21 +40,22 @@ class Rpc
      * @param string $response
      *
      * @return bool
+     * @throws \Saiks24\Rpc\Exceptions\WrongJsonRpcResponseException
      */
     public static function validateResponse(string $response) : bool
     {
         $response = json_decode($response,true);
         if(empty($response)) {
-            return false;
+            throw new WrongJsonRpcResponseException();
         }
         if(!isset($response['jsonrpc'])) {
-            return false;
+            throw new WrongJsonRpcResponseException();
         }
         if(!isset($response['error']) && !isset($response['result'])) {
-            return false;
+            throw new WrongJsonRpcResponseException();
         }
         if(isset($response['error']) && gettype($response['error']) !== 'array') {
-            return false;
+            throw new WrongJsonRpcResponseException();
         }
         return true;
     }

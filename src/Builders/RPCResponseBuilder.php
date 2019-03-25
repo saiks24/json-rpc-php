@@ -77,21 +77,23 @@ class RPCResponseBuilder
 
     public function createFromString(String $responseBody)
     {
-        $response = new RpcResponse();
-        $responseBody = json_decode($responseBody,true);
-        $response->setProtocol($responseBody['jsonrpc']);
-        if(isset($responseBody['error'])) {
-            $response->setError(
-              new Error($responseBody['error']['code'],$responseBody['error']['message'])
-            );
-        } else {
-            $response->setResult($responseBody['result']);
+        if(Rpc::validateResponse($responseBody)) {
+            $response = new RpcResponse();
+            $responseBody = json_decode($responseBody,true);
+            $response->setProtocol($responseBody['jsonrpc']);
+            if(isset($responseBody['error'])) {
+                $response->setError(
+                  new Error($responseBody['error']['code'],$responseBody['error']['message'])
+                );
+            } else {
+                $response->setResult($responseBody['result']);
+            }
+            if(isset($responseBody['id'])) {
+                $response->setId($responseBody['id']);
+            }
+            $this->response = $response;
+            return $this;
         }
-        if(isset($responseBody['id'])) {
-            $response->setId($responseBody['id']);
-        }
-        $this->response = $response;
-        return $this;
     }
 
     public function createFromPsrResponse(ResponseInterface $response)
