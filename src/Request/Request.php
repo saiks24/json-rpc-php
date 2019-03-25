@@ -98,6 +98,9 @@ class Request implements RpcRequestInterface
           'method' => $this->method,
           'params' => $this->args
         ];
+        if(!empty($this->id)) {
+            $request['id'] = $this->id;
+        }
         return json_encode($request);
     }
 }
