@@ -7,8 +7,6 @@ use Saiks24\Rpc\Builders\RPCRequestBuilder;
 use Saiks24\Rpc\Request\Request;
 use Saiks24\Rpc\Rpc;
 
-require_once __DIR__.'/../../vendor/autoload.php';
-
 class RequestBuilderTest extends TestCase
 {
     public function testSuccessfulCreateInstanceOfBuilder()
@@ -42,6 +40,33 @@ class RequestBuilderTest extends TestCase
         RPCRequestBuilder::getBuilder(Rpc::RPC_PROTOCOL_VERSION_2_0)
             ->createFromString('wrong json')
             ->build();
+    }
+
+    public function testThatRequestSuccessfulAddMethod()
+    {
+        $request = RPCRequestBuilder::getBuilder(Rpc::RPC_PROTOCOL_VERSION_2_0)
+          ->withMethod('task.create')
+          ->withArgs(['arg1'=>'val1'])
+          ->build();
+        self::assertEquals('task.create',$request->getMethod());
+    }
+
+    public function testThatRequestSuccessfulAddArgs()
+    {
+        $request = RPCRequestBuilder::getBuilder(Rpc::RPC_PROTOCOL_VERSION_2_0)
+          ->withMethod('task.create')
+          ->withArgs(['arg1'=>'val1'])
+          ->build();
+        self::assertEquals(['arg1'=>'val1'],$request->getArgs());
+    }
+
+    public function testThatRequestSuccessfulAddProtocolVersion()
+    {
+        $request = RPCRequestBuilder::getBuilder(Rpc::RPC_PROTOCOL_VERSION_2_0)
+          ->withMethod('task.create')
+          ->withArgs(['arg1'=>'val1'])
+          ->build();
+        self::assertEquals('2.0',$request->getProtocolVersion());
     }
 
     /**
