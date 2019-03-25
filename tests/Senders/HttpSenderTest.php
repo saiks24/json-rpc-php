@@ -15,7 +15,7 @@ class HttpSenderTest extends TestCase
     public function testThatSendMethodCorrectlyWorked()
     {
         $requestMock = self::getMockBuilder(Request::class)
-          ->disableOriginalConstructor();
+          ->disableOriginalConstructor()->getMock();
         $requestMock->method('serialize')->willReturn('{"test":"json"}');
         $requestMock->expects(self::once())->method('serialize');
 
