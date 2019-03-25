@@ -72,15 +72,20 @@ class RPCResponseBuilder
         return $response;
     }
 
-    public function createFromString(String $requestBody)
+    public function createFromString(String $responseBody)
     {
-        $requestBody = json_decode($requestBody,true);
+        $responseBody = json_decode($responseBody,true);
         $response = new RpcResponse();
-        $response->setArgs($requestBody['params']);
-        $response->setMethod($requestBody['method']);
-        $response->setProtocol($requestBody['jsonrpc']);
-        if(isset($requestBody['id'])) {
-            $response->setId($requestBody['id']);
+        $response->setProtocol($responseBody['jsonrpc']);
+        if(isset($responseBody['error'])) {
+            $response->setError(
+              new Error($responseBody['error']['code'],$responseBody['error']['message'])
+            );
+        } else {
+            $response->setResult($responseBody['result']);
+        }
+        if(isset($responseBody['id'])) {
+            $response->setId($responseBody['id']);
         }
         $this->response = $response;
         return $this;
